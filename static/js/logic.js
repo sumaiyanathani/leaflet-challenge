@@ -1,22 +1,19 @@
+// Getting data using d3
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(createMarkers);
 
+
+// Creating function to increase marker size for the magnitude to appear bigger and more distinguishable on the map
 function markerSize(mag) {
   return mag * 15000;
 }
 
+
+// Creating function in order to make the map
 function createMap(earthquakes) {
     
     var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
-
-  var baseMaps = {
-    "Street map": streetmap
-  }
-
-  var overlayMaps = {
-    "Earthquakes": earthquakes
-  }
 
   var map = L.map("map", {
     center: [40.52, -120.67],
@@ -47,7 +44,7 @@ function createMap(earthquakes) {
   legend.addTo(map);
 }
 
-  
+// Creating function to add the markers on top of the map and adjusting their colour and radius size according to depth and magnitude respectively 
 function createMarkers(response) {
     let earthquake = response.features;
     let earthquakeMarkers = [];
